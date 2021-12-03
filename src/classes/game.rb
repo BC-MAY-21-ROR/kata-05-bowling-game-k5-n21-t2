@@ -11,14 +11,16 @@ class Game
     score = 0
     frame = 0
     10.times do #Iterate in the 10 frames
-      if strike?(frame)
+      if is_a_strike?(frame)
         score += 10 + strike_bonus(frame)
         frame += 1
-      
+      elsif is_a_spare?(frame)
+        score += 10 + spare_bonus(frame)
+        frame += 2
 
   end
 
-  def strike?(frame) #Validate if the frame have a strike
+  def is_a_strike?(frame) #Validate if the frame have a strike
     @rolls[frame] == 10
   end
 
@@ -26,4 +28,7 @@ class Game
     @rolls[frame + 1] + @rolls[frame + 2]
   end
 
+  def is_a_spare?(frame)
+    @rolls[frame] + @rolls[frame + 1] == 10
+  end
 end
