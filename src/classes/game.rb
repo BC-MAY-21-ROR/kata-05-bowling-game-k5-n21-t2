@@ -1,34 +1,39 @@
+require_relative 'spare.rb'
+require_relative 'strike.rb'
 class Game
-  def initialize #Initialize the rolls array
+  #Initialize the rolls array
+  def initialize 
     @rolls = []
   end
 
-  def roll(pins) #Fill the rolls arraay with pins
+  #Fill the rolls arraay with pins
+  def roll(pins) 
     @rolls << pins
   end
 
-  def score #Calculate total score
+  #Calculate total score
+  def score 
     score = 0
     frame = 0
-    10.times do #Iterate in the 10 frames
-      if is_a_strike?(frame)
-        score += 10 + strike_bonus(frame)
+    #Iterate in the 10 frames
+    10.times do 
+      strike = Strike.new(frame)
+      spare = Spare.new(frame)
+      if strike.is_a_strike?(@rolls)
+        score += 10 + strike.strike_bonus(@rolls)
         frame += 1
-      elsif is_a_spare?(frame)
-        score += 10 + spare_bonus(frame)
+      elsif spare.is_a_spare?(@rolls)
+        score += 10 + spare.spare_bonus(@rolls)
         frame += 2
-
+      else
+        score += sum_of_balls_in_frame(frame)
+        frame += 2
+      end
+    end
+    score
   end
 
-  def is_a_strike?(frame) #Validate if the frame have a strike
-    @rolls[frame] == 10
-  end
-
-  def strike_bonus(frame) #Calculate the strike bonus
-    @rolls[frame + 1] + @rolls[frame + 2]
-  end
-
-  def is_a_spare?(frame)
-    @rolls[frame] + @rolls[frame + 1] == 10
+  def sum_of_balls_in_frame(frame)
+    @rolls[frame] + @rolls[frame + 1]
   end
 end
