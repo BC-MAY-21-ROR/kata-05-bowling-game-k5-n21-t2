@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class Strike
   def initialize(frame)
     @frame = frame
   end
 
-  def is_a_strike?(rolls) 
+  def a_strike?(rolls)
     rolls[@frame] == 10
   end
 
-  def strike_bonus(rolls) 
+  def strike_bonus(rolls)
     rolls[@frame + 1] + rolls[@frame + 2]
   end
 end

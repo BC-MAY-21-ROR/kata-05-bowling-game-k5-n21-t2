@@ -1,28 +1,30 @@
-require_relative 'spare.rb'
-require_relative 'strike.rb'
+# frozen_string_literal: true
+
+require_relative 'spare'
+require_relative 'strike'
 class Game
-  #Initialize the rolls array
-  def initialize 
+  # Initialize the rolls array
+  def initialize
     @rolls = []
   end
 
-  #Fill the rolls arraay with pins
-  def roll(pins) 
+  # Fill the rolls arraay with pins
+  def roll(pins)
     @rolls << pins
   end
 
-  #Calculate total score
-  def score 
+  # Calculate total score
+  def score
     score = 0
     frame = 0
-    #Iterate in the 10 frames
-    10.times do 
+    # Iterate in the 10 frames
+    10.times do
       strike = Strike.new(frame)
       spare = Spare.new(frame)
-      if strike.is_a_strike?(@rolls)
+      if strike.a_strike?(@rolls)
         score += 10 + strike.strike_bonus(@rolls)
         frame += 1
-      elsif spare.is_a_spare?(@rolls)
+      elsif spare.a_spare?(@rolls)
         score += 10 + spare.spare_bonus(@rolls)
         frame += 2
       else

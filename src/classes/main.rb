@@ -1,13 +1,15 @@
-require_relative "game.rb"
+# frozen_string_literal: true
 
-newGame = Game.new
+require_relative 'game'
 
-newGame.roll(10)
-newGame.roll(3)
-newGame.roll(4)
+new_game = Game.new
+
+new_Game.roll(10)
+new_Game.roll(3)
+new_Game.roll(4)
 
 16.times do
-  newGame.roll(0)
+  new_game.roll(0)
 end
 
-print(newGame.score)
+print(new_game.score)
